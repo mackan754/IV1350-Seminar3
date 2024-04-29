@@ -52,7 +52,6 @@ public class Controller {
         Receipt receipt = new Receipt(sale);
         printer.print(receipt);
         sale = null;
-
         return change.toString();
     }
 }

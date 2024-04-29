@@ -10,7 +10,7 @@ public final class Amount {
     public int getAmount() {
         return amount;
     }
-    //@Override
+    
     public String toString() {
         return Integer.toString(amount);
     }

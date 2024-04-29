@@ -13,14 +13,15 @@ public class Receipt {
     }
 
     public String toString() {
-        return null;
-    }
-
-    public StringBuilder buildsString (){
-
-   // StringBuilder str = new StringBuilder();
-    //saleInfo.append("Blev dyrt");
-    //System.out.println("Reciept" + str.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n");
+        sb.append("-----RECEIPT-----");
+        sb.append("\n");
+        sb.append(sale.getSaleTime().toString());
+        sb.append("\n");
+        sb.append(sale.toString());
+        sb.append("\n-------END-------");
+        return sb.toString();
     }
 }
 

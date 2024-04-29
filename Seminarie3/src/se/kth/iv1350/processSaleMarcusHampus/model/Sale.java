@@ -37,13 +37,13 @@ public class Sale {
     public String toString() {
         StringBuilder saleInfo = new StringBuilder();
         for (Item item : saleItems) {
-            saleInfo.append("Item name: ").append(item.getItemInformation().getItemName())
-                    .append(", price: ").append(item.getItemInformation().getItemPrice())
-                    .append(", tax amount: ").append(item.getItemInformation().getItemTaxAmount())
-                    .append(", quantity: ").append(item.getQuantity());
+            saleInfo.append("\n").append(item.getItemInformation().getItemName())
+                    .append("\nprice: ").append(item.getItemInformation().getItemPrice())
+                    .append("\ntax amount: ").append(item.getItemInformation().getItemTaxAmount())
+                    .append("\nquantity: ").append(item.getQuantity() + "\n");
         }
-        saleInfo.append("total: ");
-        saleInfo.append("tax: ");
+        saleInfo.append("\ntotal: ").append(total.toString());
+        saleInfo.append("\ntax: ").append((totalIncludingTax.minus(total)).toString());
         return saleInfo.toString();
     }
 
