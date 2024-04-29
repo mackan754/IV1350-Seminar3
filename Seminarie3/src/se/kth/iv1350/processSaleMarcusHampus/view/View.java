@@ -42,13 +42,10 @@ public class View {
         output = contr.displayTotalIncludingTax();
 
         System.out.println("Total including VAT: " + output);
-<<<<<<< Updated upstream
-=======
 
         System.out.println("Cashie enter amount paid");
 
         output = contr.enterPayment(new Amount(350));
 
->>>>>>> Stashed changes
     }
 }

@@ -22,24 +22,29 @@ public class Sale {
         return total;
     }
 
-    public Amount getTotalIncludingTax(){
+    public Amount getTotalIncludingTax() {
         return totalIncludingTax;
     }
 
-<<<<<<< Updated upstream
     public ArrayList<Item> getItems() {
         return saleItems;
     }
 
     public LocalDateTime getSaleTime() {
-=======
-    public ArrayList<Item> getItems(){
-        return saleItems;
+        return saleTime;
     }
 
-    public LocalDateTime getSaleTime(){
->>>>>>> Stashed changes
-        return saleTime;
+    public String toString() {
+        StringBuilder saleInfo = new StringBuilder();
+        for (Item item : saleItems) {
+            saleInfo.append("Item name: ").append(item.getItemInformation().getItemName())
+                    .append(", price: ").append(item.getItemInformation().getItemPrice())
+                    .append(", tax amount: ").append(item.getItemInformation().getItemTaxAmount())
+                    .append(", quantity: ").append(item.getQuantity());
+        }
+        saleInfo.append("total: ");
+        saleInfo.append("tax: ");
+        return saleInfo.toString();
     }
 
     private void updateTotals() {
