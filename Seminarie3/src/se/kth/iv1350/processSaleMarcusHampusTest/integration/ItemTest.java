@@ -62,4 +62,11 @@ public class ItemTest {
         Amount expectedQuantity = new Amount(2);
         assertEquals(expectedQuantity.getAmount(), item.getQuantity().getAmount());
     }
+    
+    @Test
+    public void setQuantity() {
+        Amount newQuantity = new Amount(10);
+        item.setQuantity(newQuantity);
+        assertEquals(newQuantity.getAmount(), item.getQuantity().getAmount());
+    }
 }

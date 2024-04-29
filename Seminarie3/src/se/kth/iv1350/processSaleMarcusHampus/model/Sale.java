@@ -23,6 +23,10 @@ public class Sale {
         return totalIncludingTax;
     }
 
+    public ArrayList<Item> getItems() {
+        return saleItems;
+    }
+
     private void updateTotals() {
         total = new Amount(0);
         totalIncludingTax = new Amount(0);

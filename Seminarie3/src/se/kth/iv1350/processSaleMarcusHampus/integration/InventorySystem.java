@@ -2,6 +2,7 @@ package se.kth.iv1350.processSaleMarcusHampus.integration;
 
 import java.util.ArrayList;
 
+import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 public class InventorySystem {
@@ -33,7 +34,16 @@ public class InventorySystem {
         return null;
     }
 
-    public void updateInventorySystem() {
-        // Här ska vi uppdatera lagersaldo efter att köpet är genomfört.
+    public void updateInventorySystem(Sale sale) {
+        ArrayList<Item> soldItems = sale.getItems();
+
+        for (Item soldItem : soldItems) {
+            String itemIdentifier = soldItem.getItemIdentifier();
+            Amount quantitySold = soldItem.getQuantity();
+
+            Item inventoryItem = fetchItem(itemIdentifier);
+            Amount updatedQuantity = inventoryItem.getQuantity().minus(quantitySold);
+            inventoryItem.setQuantity(updatedQuantity);
+        }
     }
 }
