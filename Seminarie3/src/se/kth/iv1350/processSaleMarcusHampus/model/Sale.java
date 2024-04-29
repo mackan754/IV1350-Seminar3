@@ -26,19 +26,11 @@ public class Sale {
         return totalIncludingTax;
     }
 
-<<<<<<< Updated upstream
     public ArrayList<Item> getItems() {
         return saleItems;
     }
 
     public LocalDateTime getSaleTime() {
-=======
-    public ArrayList<Item> getItems(){
-        return saleItems;
-    }
-
-    public LocalDateTime getSaleTime(){
->>>>>>> Stashed changes
         return saleTime;
     }
 

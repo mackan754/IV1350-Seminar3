@@ -46,9 +46,8 @@ public class Controller {
 
     public String enterPayment(Amount payment){
         Amount change = payment.minus(sale.getTotalIncludingTax());
-
-
-        inventorySystem.updateInventorySystem();
+        inventorySystem.updateInventorySystem(sale);
+        accountingSystem.updateAccountingSystem(sale);
         return change.toString();
     }
 
