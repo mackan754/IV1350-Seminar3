@@ -30,6 +30,5 @@ public class View {
         System.out.println();
         output = contr.displayTotalIncludingTax();
         System.out.println("Total including VAT: " + output);
-
     }
 }
