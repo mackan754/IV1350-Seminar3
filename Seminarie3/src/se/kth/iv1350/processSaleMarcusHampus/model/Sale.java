@@ -2,7 +2,6 @@ package se.kth.iv1350.processSaleMarcusHampus.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 import se.kth.iv1350.processSaleMarcusHampus.integration.Item;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
@@ -23,15 +22,23 @@ public class Sale {
         return total;
     }
 
-    public Amount getTotalIncludingTax() {
+    public Amount getTotalIncludingTax(){
         return totalIncludingTax;
     }
 
+<<<<<<< Updated upstream
     public ArrayList<Item> getItems() {
         return saleItems;
     }
 
     public LocalDateTime getSaleTime() {
+=======
+    public ArrayList<Item> getItems(){
+        return saleItems;
+    }
+
+    public LocalDateTime getSaleTime(){
+>>>>>>> Stashed changes
         return saleTime;
     }
 

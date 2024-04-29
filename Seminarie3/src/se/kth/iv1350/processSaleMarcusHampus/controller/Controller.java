@@ -42,4 +42,14 @@ public class Controller {
     public String displayTotalIncludingTax() {
         return sale.getTotalIncludingTax().toString();
     }
+
+
+    public String enterPayment(Amount payment){
+        Amount change = payment.minus(sale.getTotalIncludingTax());
+
+
+        inventorySystem.updateInventorySystem();
+        return change.toString();
+    }
+
 }
