@@ -29,11 +29,16 @@ public class Controller {
         itemToBeAdded.setQuantity(quantity);
         sale.addItem(itemToBeAdded);
 
-        return "item name: " + itemToBeAdded.getItemInformation().getItemName() +
-                ", price: " + itemToBeAdded.getItemInformation().getItemPrice() +
-                ", tax amount: " + itemToBeAdded.getItemInformation().getItemTaxAmount() +
-                ", quantity: " + itemToBeAdded.getQuantity() + 
+        return generateItemDetails(itemToBeAdded);
+    }
+
+    private String generateItemDetails(Item item) {
+        String itemDetails = "item name: " + item.getItemInformation().getItemName() +
+                ", price: " + item.getItemInformation().getItemPrice() +
+                ", tax amount: " + item.getItemInformation().getItemTaxAmount() +
+                ", quantity: " + item.getQuantity() +
                 ", running total: " + sale.getTotal();
+        return itemDetails;
     }
 
     public String displayTotal() {
@@ -44,13 +49,12 @@ public class Controller {
         return sale.getTotalIncludingTax().toString();
     }
 
-
-    public String enterPayment(Amount payment){
+    public String enterPayment(Amount payment) {
         Amount change = payment.minus(sale.getTotalIncludingTax());
-        inventorySystem.updateInventorySystem(sale);
-        accountingSystem.updateAccountingSystem(sale);
         Receipt receipt = new Receipt(sale);
         printer.print(receipt);
+        inventorySystem.updateInventorySystem(sale);
+        accountingSystem.updateAccountingSystem(sale, payment);
         sale = null;
         return change.toString();
     }

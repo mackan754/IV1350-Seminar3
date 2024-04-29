@@ -33,7 +33,7 @@ public class Item {
         return quantity;
     }
 
-    public void setQuantity(Amount quantity) {
-        this.quantity = quantity;
+    public void setQuantity(Amount otherQuantity) {
+        this.quantity = otherQuantity;
     }
 }

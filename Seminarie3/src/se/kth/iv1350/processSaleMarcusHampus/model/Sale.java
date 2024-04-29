@@ -35,16 +35,16 @@ public class Sale {
     }
 
     public String toString() {
-        StringBuilder saleInfo = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (Item item : saleItems) {
-            saleInfo.append("\n").append(item.getItemInformation().getItemName())
+            sb.append("\n").append(item.getItemInformation().getItemName())
                     .append("\nprice: ").append(item.getItemInformation().getItemPrice())
                     .append("\ntax amount: ").append(item.getItemInformation().getItemTaxAmount())
                     .append("\nquantity: ").append(item.getQuantity() + "\n");
         }
-        saleInfo.append("\ntotal: ").append(total.toString());
-        saleInfo.append("\ntax: ").append((totalIncludingTax.minus(total)).toString());
-        return saleInfo.toString();
+        sb.append("\ntotal: ").append(total);
+        sb.append("\ntax: ").append((totalIncludingTax.minus(total)));
+        return sb.toString();
     }
 
     private void updateTotals() {
@@ -71,7 +71,6 @@ public class Sale {
     }
 
     public void addItem(Item item) {
-
         if (!itemIsPresent(item.getItemIdentifier())) {
             saleItems.add(item);
             updateTotals();
