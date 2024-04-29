@@ -4,6 +4,7 @@ import se.kth.iv1350.processSaleMarcusHampus.integration.AccountingSystem;
 import se.kth.iv1350.processSaleMarcusHampus.integration.InventorySystem;
 import se.kth.iv1350.processSaleMarcusHampus.integration.Item;
 import se.kth.iv1350.processSaleMarcusHampus.integration.Printer;
+import se.kth.iv1350.processSaleMarcusHampus.model.Receipt;
 import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
@@ -48,7 +49,10 @@ public class Controller {
         Amount change = payment.minus(sale.getTotalIncludingTax());
         inventorySystem.updateInventorySystem(sale);
         accountingSystem.updateAccountingSystem(sale);
+        Receipt receipt = new Receipt(sale);
+        printer.print(receipt);
+        sale = null;
+
         return change.toString();
     }
-
 }

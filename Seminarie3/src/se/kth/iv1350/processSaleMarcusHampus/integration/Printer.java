@@ -1,5 +1,12 @@
 package se.kth.iv1350.processSaleMarcusHampus.integration;
 
-public class Printer {
+import se.kth.iv1350.processSaleMarcusHampus.model.Receipt;
 
+public class Printer {
+    public Printer() {
+    }
+
+    public void print(Receipt receipt) {
+
+    }
 }
