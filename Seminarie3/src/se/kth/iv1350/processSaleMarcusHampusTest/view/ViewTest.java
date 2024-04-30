@@ -47,5 +47,4 @@ public class ViewTest {
         String expectedOutput = "started";
         assertTrue(printout.contains(expectedOutput), "UI did not start correctly");
     }
-
 }
