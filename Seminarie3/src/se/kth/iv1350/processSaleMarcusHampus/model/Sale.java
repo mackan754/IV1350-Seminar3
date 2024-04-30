@@ -6,6 +6,7 @@ import se.kth.iv1350.processSaleMarcusHampus.integration.Item;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 public class Sale {
+
     private ArrayList<Item> saleItems;
     private Amount total;
     private Amount totalIncludingTax;

@@ -11,6 +11,7 @@ import se.kth.iv1350.processSaleMarcusHampus.integration.ItemDTO;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 public class ItemTest {
+
     private Item item;
 
     @BeforeEach
@@ -62,7 +63,7 @@ public class ItemTest {
         Amount expectedQuantity = new Amount(2);
         assertEquals(expectedQuantity.getAmount(), item.getQuantity().getAmount());
     }
-    
+
     @Test
     public void setQuantity() {
         Amount newQuantity = new Amount(10);

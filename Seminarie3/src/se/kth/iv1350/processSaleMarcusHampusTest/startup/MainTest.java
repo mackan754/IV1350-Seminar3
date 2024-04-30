@@ -12,6 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class MainTest {
+
     private Main instanceToTest;
     private ByteArrayOutputStream printoutBuffer;
     private PrintStream originalSysOut;
@@ -34,12 +35,11 @@ public class MainTest {
         System.setOut(originalSysOut);
     }
 
-
-    @Test 
+    @Test
     public void uiHasStarted() {
         String[] args = null;
         Main.main(args);
-        String printout =printoutBuffer.toString();
+        String printout = printoutBuffer.toString();
         String expectedOutput = "started";
         assertTrue(printout.contains(expectedOutput), "UI did not start correctly");
     }

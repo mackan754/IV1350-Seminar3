@@ -4,11 +4,11 @@ import se.kth.iv1350.processSaleMarcusHampus.controller.Controller;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 /**
- * This program has no view, instead, this class is a
- * placeholder for the entire view.
+ * This program has no view, instead, this class is a placeholder for the entire
+ * view.
  */
-
 public class View {
+
     private Controller contr;
 
     public View(Controller contr) {

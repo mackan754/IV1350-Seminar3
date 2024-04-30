@@ -7,6 +7,7 @@ import se.kth.iv1350.processSaleMarcusHampus.integration.Printer;
 import se.kth.iv1350.processSaleMarcusHampus.view.View;
 
 public class Main {
+
     public static void main(String[] args) {
         AccountingSystem accountingSystem = new AccountingSystem();
         InventorySystem inventorySystem = new InventorySystem();

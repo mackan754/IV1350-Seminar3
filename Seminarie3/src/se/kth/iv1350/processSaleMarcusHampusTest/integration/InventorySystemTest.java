@@ -13,6 +13,7 @@ import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 public class InventorySystemTest {
+
     private InventorySystem inventorySystem;
     private Sale sale;
 

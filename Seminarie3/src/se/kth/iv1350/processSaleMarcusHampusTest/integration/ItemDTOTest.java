@@ -10,6 +10,7 @@ import se.kth.iv1350.processSaleMarcusHampus.integration.ItemDTO;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 public class ItemDTOTest {
+
     private ItemDTO itemDTO;
 
     @BeforeEach

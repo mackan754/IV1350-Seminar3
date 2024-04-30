@@ -16,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class ViewTest {
+
     private View instanceToTest;
     private ByteArrayOutputStream printoutBuffer;
     private PrintStream originalSysOut;
@@ -46,5 +47,5 @@ public class ViewTest {
         String expectedOutput = "started";
         assertTrue(printout.contains(expectedOutput), "UI did not start correctly");
     }
-    
+
 }

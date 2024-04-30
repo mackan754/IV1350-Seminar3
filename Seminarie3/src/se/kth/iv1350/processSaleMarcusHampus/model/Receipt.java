@@ -4,8 +4,8 @@ package se.kth.iv1350.processSaleMarcusHampus.model;
 /*
  * This is the receipt. 
  */
-
 public class Receipt {
+
     private Sale sale;
 
     public Receipt(Sale sale) {
@@ -24,5 +24,3 @@ public class Receipt {
         return sb.toString();
     }
 }
-
-
