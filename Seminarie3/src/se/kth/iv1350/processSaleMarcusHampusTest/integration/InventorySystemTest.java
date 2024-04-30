@@ -3,6 +3,7 @@ package se.kth.iv1350.processSaleMarcusHampusTest.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +30,12 @@ public class InventorySystemTest {
         sale.addItem(new Item("32002", bananaDTO, new Amount(3)));
         sale.addItem(new Item("32003", icecreamDTO, new Amount(2)));
         sale.addItem(new Item("32004", pastaDTO, new Amount(4)));
+    }
+
+    @AfterEach
+    public void tearDown() {
+        inventorySystem = null;
+        sale = null;
     }
 
     @Test
