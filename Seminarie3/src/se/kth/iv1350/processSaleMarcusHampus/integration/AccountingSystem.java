@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
-/*
+/**
  * The AccountingSystem class manages financial records and the cash register's balance.
  * It logs all completed sales and updates the cash register with the payments received.
  */
@@ -13,7 +13,7 @@ public class AccountingSystem {
     private ArrayList<Sale> accountingBook; // A record of all completed sales.
     private Amount presentInRegister; // The current amount of money in the cash register.
 
-    /*
+    /**
      * Constructs a new AccountingSystem with an empty list of sales and initializes the cash register to zero.
      */
     public AccountingSystem() {
@@ -21,7 +21,7 @@ public class AccountingSystem {
         this.presentInRegister = new Amount(0); // Initializes the register with no money.
     }
 
-    /*
+    /**
      * Updates the accounting system by adding a completed sale to the accounting record and updating the cash balance.
      *
      * @param sale The completed Sale object to be added to the accounting records.

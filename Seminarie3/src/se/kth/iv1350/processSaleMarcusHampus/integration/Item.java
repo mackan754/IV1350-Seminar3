@@ -2,17 +2,17 @@ package se.kth.iv1350.processSaleMarcusHampus.integration;
 
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
-/*
+/**
  * Represents an item in the inventory. This class holds details about an item, including its identifier,
  * description, and quantity in stock.
  */
 public class Item {
 
-    private String itemIdentifier; // The unique identifier for the item
-    private ItemDTO itemInformation; // Detailed description of the item including name, category, price, and tax
-    private Amount quantity; // The quantity of this item in stock or in a transaction
+    private String itemIdentifier;      // The unique identifier for the item
+    private ItemDTO itemInformation;    // Detailed description of the item including name, category, price, and tax
+    private Amount quantity;            // The quantity of this item in stock or in a transaction
 
-    /*
+    /**
      * Constructs an item with a specified identifier, description, and initial quantity.
      *
      * @param itemIdentifier A unique string that identifies the item
@@ -25,7 +25,7 @@ public class Item {
         this.quantity = quantity;
     }
 
-    /*
+    /**
      * Returns the unique identifier for the item.
      *
      * @return The unique identifier as a string
@@ -34,7 +34,7 @@ public class Item {
         return itemIdentifier;
     }
 
-    /*
+    /**
      * Retrieves detailed information about the item.
      *
      * @return An instance of ItemDTO containing details such as name, price, and tax
@@ -43,7 +43,7 @@ public class Item {
         return itemInformation;
     }
 
-    /*
+    /**
      * Increases the quantity of this item by a specified amount.
      *
      * @param otherQuantity The amount to add to the current item quantity
@@ -52,7 +52,7 @@ public class Item {
         this.quantity = this.quantity.plus(otherQuantity);
     }
 
-    /*
+    /**
      * Decreases the quantity of this item by a specified amount.
      *
      * @param otherQuantity The amount to subtract from the current item quantity
@@ -61,7 +61,7 @@ public class Item {
         this.quantity = this.quantity.minus(otherQuantity);
     }
 
-    /*
+    /**
      * Returns the current quantity of the item.
      *
      * @return The quantity of the item as an Amount
@@ -70,7 +70,7 @@ public class Item {
         return quantity;
     }
 
-    /*
+    /**
      * Sets the item's quantity to a specified new value.
      *
      * @param otherQuantity The new quantity of the item

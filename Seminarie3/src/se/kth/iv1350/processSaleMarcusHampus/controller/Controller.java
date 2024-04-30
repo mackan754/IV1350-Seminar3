@@ -11,7 +11,7 @@ import se.kth.iv1350.processSaleMarcusHampus.model.Receipt;
 import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
-/*
+/**
  * The Controller class acts as the central part of the application, coordinating interactions
  * between the user interface and the integration/model layers.
  */
@@ -22,7 +22,7 @@ public class Controller {
     private Printer printer;
     private Sale sale;
 
-    /*
+    /**
      * Initializes a new Controller with necessary external systems for accounting, inventory management, and printing.
      * 
      * @param accountingSystem the accounting system to be used for financial transactions
@@ -35,14 +35,14 @@ public class Controller {
         this.printer = printer;
     }
 
-    /*
+    /**
      * Begins a new sale transaction, resetting the current Sale object to ensure a clean state.
      */
     public void startNewSale() {
         this.sale = new Sale();
     }
 
-    /*
+    /**
      * Adds an item to the current sale using an identifier. The quantity of the item is also specified.
      * 
      * @param itemIdentifier a unique string identifier for the item to be added
@@ -58,7 +58,7 @@ public class Controller {
     }
 
 
-    /*
+    /**
      * Constructs a detailed description of an item's properties, including name, price, tax, quantity, and running total.
      *
      * @param item the item for which details are to be generated
@@ -73,7 +73,7 @@ public class Controller {
         return itemDetails;
     }
 
-    /*
+    /**
      * Provides the total cost of items in the current sale, excluding tax.
      *
      * @return the total amount as a string
@@ -82,7 +82,7 @@ public class Controller {
         return sale.getTotal().toString();
     }
 
-    /*
+    /**
      * Provides the total cost including tax for all items in the current sale.
      *
      * @return the total amount including tax as a string
@@ -91,7 +91,7 @@ public class Controller {
         return sale.getTotalIncludingTax().toString();
     }
 
-    /*
+    /**
      * Completes the sale by processing the payment, calculating change, printing a receipt,
      * and updating the inventory and accounting systems.
      *

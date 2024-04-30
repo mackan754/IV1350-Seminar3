@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
-/*
+/**
  * The InventorySystem class manages the stock levels of items available for sale.
  * It handles operations such as item retrieval and stock updates post-sale.
  */
@@ -12,7 +12,7 @@ public class InventorySystem {
 
     private ArrayList<Item> inventory; // List of items available in the inventory.
 
-    /*
+    /**
      * Constructs an InventorySystem and initializes it with a default set of inventory items.
      */
     public InventorySystem() {
@@ -20,7 +20,7 @@ public class InventorySystem {
         addFakeInventory(); // Populates the inventory with a set of predefined items.
     }
 
-    /*
+    /**
      * Adds a predefined set of items to the inventory for demonstration purposes.
      * This method simulates an initial inventory load.
      */
@@ -38,7 +38,7 @@ public class InventorySystem {
         inventory.add(new Item("32004", pastaDTO, new Amount(10)));
     }
 
-    /*
+    /**
      * Retrieves an item from the inventory based on its unique identifier.
      *
      * @param itemIdentifier A string representing the unique identifier of the item
@@ -53,7 +53,7 @@ public class InventorySystem {
         return null; // Returns null if no matching item is found
     }
 
-    /*
+    /**
      * Updates the inventory based on items sold in a completed sale.
      * It decreases the stock quantity of each sold item.
      *
@@ -67,7 +67,6 @@ public class InventorySystem {
             Amount quantitySold = soldItem.getQuantity();
 
             Item inventoryItem = fetchItem(itemIdentifier);
-            //if (inventoryItem != null) { // Ensures that the item exists in inventory before updating
             Amount updatedQuantity = inventoryItem.getQuantity().minus(quantitySold);
             inventoryItem.setQuantity(updatedQuantity);
         }
