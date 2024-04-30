@@ -21,6 +21,15 @@ public class AccountingSystem {
         this.presentInRegister = new Amount(0); // Initializes the register with no money.
     }
 
+    public Amount getPresenInRegister() {
+        return presentInRegister;
+    }
+
+    public ArrayList<Sale> getAccountingBook() {
+        return accountingBook;
+    }
+
+
     /**
      * Updates the accounting system by adding a completed sale to the accounting record and updating the cash balance.
      *
