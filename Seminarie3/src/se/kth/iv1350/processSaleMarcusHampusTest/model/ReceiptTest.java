@@ -19,15 +19,11 @@ public class ReceiptTest {
     @Test
     public void testToStringWithEmptyReceipt() {
         
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n");
-        sb.append("-----RECEIPT-----");
-        sb.append("\n");
-        sb.append(sale.getFormattedSaleTime().toString());
-        sb.append("\n");
-        sb.append(sale.toString());
-        sb.append("\n-------END-------");
-        String expected = sb.toString();
+        String expected ="\n" +
+        "-----RECEIPT-----\n" +
+        sale.getFormattedSaleTime().toString() + "\n" +
+        sale.toString() + "\n" +
+        "-------END-------";
 
         assertEquals(expected, receipt.toString(), "Receipt string should match the format for an empty receipt.");
     }
