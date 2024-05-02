@@ -1,8 +1,5 @@
 package se.kth.iv1350.processSaleMarcusHampus.controller;
 
-/*
- * Imports relevant code for interaction with accounting, inventory, printing services, and model management.
- */
 import se.kth.iv1350.processSaleMarcusHampus.integration.AccountingSystem;
 import se.kth.iv1350.processSaleMarcusHampus.integration.InventorySystem;
 import se.kth.iv1350.processSaleMarcusHampus.integration.Item;
@@ -36,7 +33,7 @@ public class Controller {
     }
 
     /**
-     * Begins a new sale transaction, resetting the current Sale object to ensure a clean state.
+     * Begins a new sale, resetting the current Sale object to ensure a clean state.
      */
     public void startNewSale() {
         this.sale = new Sale();
@@ -83,7 +80,7 @@ public class Controller {
     }
 
     /**
-     * Provides the total cost including tax for all items in the current sale.
+     * Provides the total cost of items in the current sale, including tax.
      *
      * @return the total amount including tax as a string
      */
@@ -96,7 +93,7 @@ public class Controller {
      * and updating the inventory and accounting systems.
      *
      * @param payment the amount paid by the customer
-     * @return a string representing the change to be given to the customer
+     * @return string representing the change to be given to the customer
      */
     public String enterPayment(Amount payment) {
         Amount change = payment.minus(sale.getTotalIncludingTax());
@@ -104,7 +101,7 @@ public class Controller {
         printer.print(receipt);
         inventorySystem.updateInventorySystem(sale);
         accountingSystem.updateAccountingSystem(sale, payment);
-        sale = null; //Resets sale for futer transactions
+        sale = null;
         return change.toString();
     }
 }

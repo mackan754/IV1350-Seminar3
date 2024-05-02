@@ -1,4 +1,4 @@
-package se.kth.iv1350.processSaleMarcusHampus.model;
+package se.kth.iv1350.processSaleMarcusHampusTest.model;
 
 import static org.junit.Assert.*;
 import org.junit.Test;

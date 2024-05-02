@@ -18,7 +18,6 @@ public class Printer {
      * Prints the formatted receipt details to the standard output.
      * 
      * @param receipt the Receipt object that contains the details to be printed.
-     *                It must not be null.
      */
     public void print(Receipt receipt) {
         System.out.println(receipt.toString());

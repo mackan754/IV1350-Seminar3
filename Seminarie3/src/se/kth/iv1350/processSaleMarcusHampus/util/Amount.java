@@ -3,10 +3,9 @@ package se.kth.iv1350.processSaleMarcusHampus.util;
 /**
  * This class represents a numeric amount and provides basic arithmetic operations.
  * It is designed to encapsulate an integer amount and support operations such as addition,
- * subtraction, and multiplication, typically used for handling monetary values or quantities.
+ * subtraction, and multiplication, used for handling monetary values or quantities.
  */
 public final class Amount {
-
     private final int amount;
 
     /**

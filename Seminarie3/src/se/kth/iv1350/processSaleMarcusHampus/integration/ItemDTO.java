@@ -8,10 +8,10 @@ import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
  */
 public class ItemDTO {
 
-    private final String itemName;          // The name of the item
-    private final String itemDescription;   // A description of the item, providing more details
-    private final Amount itemPrice;         // The selling price of the item
-    private final Amount itemTaxAmount;     // The tax amount applicable to the item
+    private final String itemName;          
+    private final String itemDescription;   
+    private final Amount itemPrice;         
+    private final Amount itemTaxAmount;     
 
     /**
      * Constructs an ItemDTO with specified details.
@@ -40,7 +40,7 @@ public class ItemDTO {
     /**
      * Retrieves the description of the item.
      *
-     * @return A string describing the item, providing additional detail beyond the name
+     * @return A string describing the item
      */
     public String getItemDescription() {
         return itemDescription;

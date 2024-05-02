@@ -28,7 +28,7 @@ public class Receipt {
         sb.append("\n");
         sb.append("-----RECEIPT-----");
         sb.append("\n");
-        sb.append(sale.getSaleTime().toString());
+        sb.append(sale.getFormattedSaleTime().toString());
         sb.append("\n");
         sb.append(sale.toString());
         sb.append("\n-------END-------");

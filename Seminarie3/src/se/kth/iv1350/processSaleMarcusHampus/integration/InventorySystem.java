@@ -10,14 +10,14 @@ import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
  */
 public class InventorySystem {
 
-    private ArrayList<Item> inventory; // List of items available in the inventory.
+    private ArrayList<Item> inventory;
 
     /**
      * Constructs an InventorySystem and initializes it with a default set of inventory items.
      */
     public InventorySystem() {
         this.inventory = new ArrayList<>();
-        addFakeInventory(); // Populates the inventory with a set of predefined items.
+        addFakeInventory();
     }
 
     /**
@@ -25,13 +25,11 @@ public class InventorySystem {
      * This method simulates an initial inventory load.
      */
     private void addFakeInventory() {
-        // Define each item with a description and price details.
         ItemDTO milkDTO = new ItemDTO("Milk", "Dairy", new Amount(12), new Amount(2));
         ItemDTO bananaDTO = new ItemDTO("Banana", "Fruit", new Amount(5), new Amount(1));
         ItemDTO icecreamDTO = new ItemDTO("Icecream", "Frozen", new Amount(49), new Amount(6));
         ItemDTO pastaDTO = new ItemDTO("Pasta", "Dry goods", new Amount(15), new Amount(3));
 
-        // Add items to the inventory with a specified quantity.
         inventory.add(new Item("32001", milkDTO, new Amount(10)));
         inventory.add(new Item("32002", bananaDTO, new Amount(10)));
         inventory.add(new Item("32003", icecreamDTO, new Amount(10)));
@@ -50,7 +48,7 @@ public class InventorySystem {
                 return item;
             }
         }
-        return null; // Returns null if no matching item is found
+        return null;
     }
 
     /**

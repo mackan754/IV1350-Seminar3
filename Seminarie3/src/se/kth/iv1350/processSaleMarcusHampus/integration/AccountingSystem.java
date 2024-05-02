@@ -10,21 +10,31 @@ import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
  */
 public class AccountingSystem {
 
-    private ArrayList<Sale> accountingBook; // A record of all completed sales.
-    private Amount presentInRegister; // The current amount of money in the cash register.
+    private ArrayList<Sale> accountingBook;
+    private Amount presentInRegister;
 
     /**
      * Constructs a new AccountingSystem with an empty list of sales and initializes the cash register to zero.
      */
     public AccountingSystem() {
         this.accountingBook = new ArrayList<>();
-        this.presentInRegister = new Amount(0); // Initializes the register with no money.
+        this.presentInRegister = new Amount(0);
     }
 
+    /**
+     * Provides the total amount present in the register.
+     * 
+     * @return the total amount as Amount.
+     */
     public Amount getPresenInRegister() {
         return presentInRegister;
     }
 
+    /**
+     * Provides all recorded sales in the AccountingSystem.
+     * 
+     * @return all sales as ArrayList
+     */
     public ArrayList<Sale> getAccountingBook() {
         return accountingBook;
     }
@@ -37,7 +47,7 @@ public class AccountingSystem {
      * @param payment The payment received for the sale, which will be added to the cash register.
      */
     public void updateAccountingSystem(Sale sale, Amount payment) {
-        accountingBook.add(sale); // Adds the sale to the accounting records.
-        this.presentInRegister = this.presentInRegister.plus(payment); // Updates the cash register balance.
+        accountingBook.add(sale);
+        this.presentInRegister = this.presentInRegister.plus(payment);
     }
 }

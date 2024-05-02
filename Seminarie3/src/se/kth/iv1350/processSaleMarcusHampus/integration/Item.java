@@ -4,13 +4,13 @@ import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 /**
  * Represents an item in the inventory. This class holds details about an item, including its identifier,
- * description, and quantity in stock.
+ * description, and quantity.
  */
 public class Item {
 
-    private String itemIdentifier;      // The unique identifier for the item
-    private ItemDTO itemInformation;    // Detailed description of the item including name, category, price, and tax
-    private Amount quantity;            // The quantity of this item in stock or in a transaction
+    private String itemIdentifier;      
+    private ItemDTO itemInformation;    
+    private Amount quantity;            
 
     /**
      * Constructs an item with a specified identifier, description, and initial quantity.

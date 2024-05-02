@@ -1,6 +1,7 @@
 package se.kth.iv1350.processSaleMarcusHampus.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import se.kth.iv1350.processSaleMarcusHampus.integration.Item;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
@@ -17,10 +18,9 @@ public class Sale {
     private LocalDateTime saleTime;
 
     /**
-     * Gets the total cost of items in the sale without tax.
-     *
-     * @return the total amount as an Amount object.
-     */
+    * Initializes a new Sale object with empty items and zero total cost (without tax).
+    * Sale time is set to the current time.
+    */
     public Sale() {
         this.saleItems = new ArrayList<>();
         this.total = new Amount(0);
@@ -62,6 +62,16 @@ public class Sale {
      */
     public LocalDateTime getSaleTime() {
         return saleTime;
+    }
+
+    /**
+     * Gets the time when sale was initiadted.
+     * 
+     * @return a String representing the sale initiation time.
+     */
+    public String getFormattedSaleTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return saleTime.format(formatter);
     }
 
     /**
