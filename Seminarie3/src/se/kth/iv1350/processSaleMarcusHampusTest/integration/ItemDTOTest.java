@@ -30,24 +30,24 @@ public class ItemDTOTest {
     @Test
     public void getItemName() {
         String expectedItemName = "Test Item";
-        assertEquals(expectedItemName, itemDTO.getItemName());
+        assertEquals(expectedItemName, itemDTO.getItemName(), "Item name should match the expected value.");
     }
 
     @Test
     public void getItemDescription() {
         String expectedItemDescription = "This is a test item";
-        assertEquals(expectedItemDescription, itemDTO.getItemDescription());
+        assertEquals(expectedItemDescription, itemDTO.getItemDescription(), "Item description should match the expected value.");
     }
 
     @Test
     public void getItemPrice() {
         Amount expectedItemPrice = new Amount(50);
-        assertEquals(expectedItemPrice.getAmount(), itemDTO.getItemPrice().getAmount());
+        assertEquals(expectedItemPrice.getAmount(), itemDTO.getItemPrice().getAmount(), "Item price should match the expected value.");
     }
 
     @Test
     public void getItemTaxAmount() {
         Amount expectedItemTaxAmount = new Amount(5);
-        assertEquals(expectedItemTaxAmount.getAmount(), itemDTO.getItemTaxAmount().getAmount());
+        assertEquals(expectedItemTaxAmount.getAmount(), itemDTO.getItemTaxAmount().getAmount(), "Item tax amount should match the expected value.");
     }
 }

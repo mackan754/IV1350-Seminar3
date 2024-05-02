@@ -20,7 +20,6 @@ public class SaleTest {
 
     @Before
     public void setUp() {
-        // Create a sample sale
         sale = new Sale();
         itemDTO1 = new ItemDTO("Apple", "Fresh apple", new Amount(10), new Amount(2));
         itemDTO2 = new ItemDTO("Banana", "Fresh banana", new Amount(15), new Amount(3));
@@ -28,30 +27,30 @@ public class SaleTest {
 
     @Test
     public void testGetTotal() {
-        assertEquals(0, sale.getTotal().getAmount(), 0);
+        assertEquals("Total should be 0 initially.", 0, sale.getTotal().getAmount(), 0);
     }
 
     @Test
     public void testGetTotalIncludingTax() {
-        assertEquals(0, sale.getTotalIncludingTax().getAmount(), 0);
+        assertEquals("Total including tax should be 0 initially.", 0, sale.getTotalIncludingTax().getAmount(), 0);
     }
 
     @Test
     public void testGetItems() {
         ArrayList<Item> items = sale.getItems();
-        assertEquals(0, items.size());
+        assertEquals("Item list should be empty initally", 0, items.size());
     }
 
     @Test
     public void testGetSaleTime() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime saleTime = sale.getSaleTime();
-        // Assert that the sale time is within one second of the current time
-        assertEquals(currentTime.getYear(), saleTime.getYear());
-        assertEquals(currentTime.getMonth(), saleTime.getMonth());
-        assertEquals(currentTime.getDayOfMonth(), saleTime.getDayOfMonth());
-        assertEquals(currentTime.getHour(), saleTime.getHour());
-        assertEquals(currentTime.getMinute(), saleTime.getMinute());
+
+        assertEquals("Sale time should match the current time.", currentTime.getYear(), saleTime.getYear());
+        assertEquals("Sale time should match the current time.", currentTime.getMonth(), saleTime.getMonth());
+        assertEquals("Sale time should match the current time.", currentTime.getDayOfMonth(), saleTime.getDayOfMonth());
+        assertEquals("Sale time should match the current time.", currentTime.getHour(), saleTime.getHour());
+        assertEquals("Sale time should match the current time.", currentTime.getMinute(), saleTime.getMinute());
     }
 
     @Test
@@ -60,16 +59,15 @@ public class SaleTest {
         Item item2 = new Item("456", itemDTO2, new Amount(3));
 
         sale.addItem(item1);
-        assertEquals(1, sale.getItems().size());
-        assertEquals(50, sale.getTotal().getAmount(), 0);
+        assertEquals("One item should be added", 1, sale.getItems().size());
+        assertEquals("Total amount should be updated correctly", 50, sale.getTotal().getAmount(), 0);
 
         sale.addItem(item2);
-        assertEquals(2, sale.getItems().size());
-        assertEquals(95, sale.getTotal().getAmount(), 0);
+        assertEquals("Another item should be added", 2, sale.getItems().size());
+        assertEquals("Total amount should be updated correctly", 95, sale.getTotal().getAmount(), 0);
 
-        // Adding same item should increase quantity
         sale.addItem(item1);
-        assertEquals(2, sale.getItems().size());
-        assertEquals(145, sale.getTotal().getAmount(), 0);
+        assertEquals("Duplicate item should not increase item count", 2, sale.getItems().size());
+        assertEquals("Total amount should be updated correctly", 145, sale.getTotal().getAmount(), 0);
     }
 }

@@ -1,6 +1,9 @@
 package se.kth.iv1350.processSaleMarcusHampusTest.integration;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,15 +29,26 @@ public class AccountingSystemTest {
     }
 
     @Test
+    public void testGetPresenInRegister() {
+        Amount initialBalance = new Amount(0);
+        assertEquals(initialBalance.getAmount(), accountingSystem.getPresenInRegister().getAmount(), "Initial register balance should be zero");
+    }
+
+    @Test
+    public void testGetAccountingBook() {
+        ArrayList<Sale> initialAccountingBook = new ArrayList<>();
+        assertEquals(initialAccountingBook, accountingSystem.getAccountingBook(), "Initial accounting book should be empty");
+    }
+
+    @Test
     public void testUpdateAccountingSystem() {
-        Amount payment = new Amount(100); // Payment of 100 units
-        Amount initialBalance = accountingSystem.getPresenInRegister(); // Get initial balance
+        Amount payment = new Amount(100);
+        Amount initialBalance = accountingSystem.getPresenInRegister();
         accountingSystem.updateAccountingSystem(sale, payment);
-        assertEquals(1, accountingSystem.getAccountingBook().size()); // Assert that the sale is added to the accounting
-                                                                      // records
-        assertEquals(initialBalance.plus(payment).getAmount(), accountingSystem.getPresenInRegister().getAmount()); // Assert that the cash
-                                                                                             // register balance is
-                                                                                             // updated correctly
+        assertEquals(1, accountingSystem.getAccountingBook().size(),
+                "Accountingbook size should be increased by 1 after updating.");
+        assertEquals(initialBalance.plus(payment).getAmount(), accountingSystem.getPresenInRegister().getAmount(),
+                "Balance in register should be increased by payment amount.");
     }
 
 }

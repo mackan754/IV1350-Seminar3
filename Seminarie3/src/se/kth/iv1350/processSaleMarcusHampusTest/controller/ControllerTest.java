@@ -1,7 +1,6 @@
 package se.kth.iv1350.processSaleMarcusHampusTest.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,10 +19,9 @@ public class ControllerTest {
 
     @BeforeEach
     public void setUp() {
-        // Assume these are properly initialized in your actual test setup
-        accountingSystem = new AccountingSystem(); // Placeholder instance
-        inventorySystem = new InventorySystem();   // Placeholder instance
-        printer = new Printer();                   // Placeholder instance
+        accountingSystem = new AccountingSystem();
+        inventorySystem = new InventorySystem();
+        printer = new Printer();
         controller = new Controller(accountingSystem, inventorySystem, printer);
     }
 
@@ -38,21 +36,55 @@ public class ControllerTest {
     @Test
     public void testStartNewSale() {
         controller.startNewSale();
-        // Simply check if the controller can start a new sale, actual testing of sale reset is limited without mocks
-        // Assuming displayTotal returns "0" if a new Sale object is properly initialized
-        assertEquals("0", controller.displayTotal());
+        assertEquals("0", controller.displayTotal(), "Sale did not start correctly.");
     }
 
     @Test
-    public void testCompleteSaleWithDummyValues() {
+    public void testAddItem() {
         controller.startNewSale();
-        // This test must be designed to avoid interactions with non-existent systems since no mocks are used
-        Amount payment = new Amount(200);
-        // Expected change calculation must be hardcoded or calculated based on dummy inputs
-        String expectedChange = "200";  // Assuming there are no items added, and total including tax is 0
-        String change = controller.enterPayment(payment);
-
-        assertEquals(expectedChange, change);
-        // Note: This does not test integration with the printer or accounting systems effectively
+        Amount quantity = new Amount(2);
+        controller.addItem("32001", quantity);
+        String expectedTotal = "24";
+        assertEquals(expectedTotal, controller.displayTotal(),
+                "Adding and existing inventory item did not update the sale correctly.");
     }
+
+    @Test
+    public void testDisplayTotal() {
+        controller.startNewSale();
+
+        controller.addItem("32001", new Amount(2));
+        controller.addItem("32002", new Amount(3));
+
+        String expectedTotal = "39";
+
+        assertEquals(expectedTotal, controller.displayTotal(),
+                "Displayed total does not match the expected total without considering tax.");
+    }
+
+    @Test
+    public void testDisplayTotalIncludingTax() {
+        controller.startNewSale();
+
+        controller.addItem("32001", new Amount(2));
+        controller.addItem("32002", new Amount(3));
+
+        String expectedTotal = "46";
+
+        assertEquals(expectedTotal, controller.displayTotalIncludingTax(),
+                "Displayed total does not match the expected total.");
+    }
+
+    @Test
+    public void testEnterPayment() {
+        controller.startNewSale();
+
+        controller.addItem("32001", new Amount(2)); 
+
+        Amount payment = new Amount(100);
+        Amount expectedChange = payment.minus(new Amount(28)); 
+
+        assertEquals(expectedChange.toString(), controller.enterPayment(payment), "Returned change does not match the expected change after payment.");
+    }
+
 }

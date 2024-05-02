@@ -1,44 +1,34 @@
 package se.kth.iv1350.processSaleMarcusHampusTest.model;
 
 import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.Test;
-import java.time.LocalDateTime;
+import se.kth.iv1350.processSaleMarcusHampus.model.Receipt;
+import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
 
-/**
- * Test class for Receipt.
- */
 public class ReceiptTest {
+    private Sale sale;
+    private Receipt receipt;
 
-    /**
-     * A stub class for Sale to use in tests.
-     */
-    private class SaleStub extends Sale {
-        @Override
-        public LocalDateTime getSaleTime() {
-            // Return a fixed point in time for test consistency.
-            return LocalDateTime.of(2024, 4, 30, 15, 0);
-        }
-
-        @Override
-        public String toString() {
-            // Return a simplified sale detail for testing.
-            return "Item1: 2 pcs, Total: $20";
-        }
+    @Before
+    public void setUp() {
+        sale = new Sale();
+        receipt = new Receipt(sale);
     }
 
-    /**
-     * Test of toString method of class Receipt.
-     */
     @Test
-    public void testToString() {
-        SaleStub saleStub = new SaleStub();
-        Receipt receipt = new Receipt(saleStub);
+    public void testToStringWithEmptyReceipt() {
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n");
+        sb.append("-----RECEIPT-----");
+        sb.append("\n");
+        sb.append(sale.getFormattedSaleTime().toString());
+        sb.append("\n");
+        sb.append(sale.toString());
+        sb.append("\n-------END-------");
+        String expected = sb.toString();
 
-        String expectedOutput = "\n"
-                                + "-----RECEIPT-----\n"
-                                + "2024-04-30T15:00\n"
-                                + "Item1: 2 pcs, Total: $20\n"
-                                + "-------END-------";
-        assertEquals("Receipt string should be formatted correctly.", expectedOutput, receipt.toString());
+        assertEquals(expected, receipt.toString(), "Receipt string should match the format for an empty receipt.");
     }
 }

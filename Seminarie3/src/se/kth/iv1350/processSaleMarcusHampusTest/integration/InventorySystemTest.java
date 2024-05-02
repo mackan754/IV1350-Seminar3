@@ -42,23 +42,23 @@ public class InventorySystemTest {
     public void testFetchItem() {
         String itemIdentifier = "32001";
         Item fetchedItem = inventorySystem.fetchItem(itemIdentifier);
-        assertEquals(itemIdentifier, fetchedItem.getItemIdentifier());
+        assertEquals(itemIdentifier, fetchedItem.getItemIdentifier(), "Fetched item's identifier should match requested.");
     }
 
     @Test
     public void testFetchItemNotFound() {
         String itemIdentifier = "99999";
         Item fetchedItem = inventorySystem.fetchItem(itemIdentifier);
-        assertNull(fetchedItem);
+        assertNull(fetchedItem, "No item should be fetched for a non-existing identifier.");
     }
 
     @Test
     public void testUpdateInventorySystem() {
         inventorySystem.updateInventorySystem(sale);
-        // Check if quantities have been updated correctly
-        assertEquals(5, inventorySystem.fetchItem("32001").getQuantity().getAmount());
-        assertEquals(7, inventorySystem.fetchItem("32002").getQuantity().getAmount());
-        assertEquals(8, inventorySystem.fetchItem("32003").getQuantity().getAmount());
-        assertEquals(6, inventorySystem.fetchItem("32004").getQuantity().getAmount());
+        
+        assertEquals(5, inventorySystem.fetchItem("32001").getQuantity().getAmount(), "Quantity of fetched item should be updated after sale.");
+        assertEquals(7, inventorySystem.fetchItem("32002").getQuantity().getAmount(), "Quantity of fetched item should be updated after sale.");
+        assertEquals(8, inventorySystem.fetchItem("32003").getQuantity().getAmount(), "Quantity of fetched item should be updated after sale.");
+        assertEquals(6, inventorySystem.fetchItem("32004").getQuantity().getAmount(), "Quantity of fetched item should be updated after sale.");
     }
 }

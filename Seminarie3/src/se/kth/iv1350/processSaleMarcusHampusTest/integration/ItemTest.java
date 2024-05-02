@@ -30,16 +30,16 @@ public class ItemTest {
     @Test
     public void getItemIdentifier() {
         String expectedItemIdentifier = "12345";
-        assertEquals(expectedItemIdentifier, item.getItemIdentifier());
+        assertEquals(expectedItemIdentifier, item.getItemIdentifier(), "Item identifier should match the expected value.");
     }
 
     @Test
     public void getItemInformation() {
         ItemDTO expectedItemInformation = new ItemDTO("Test Item", "This is a test item", new Amount(50), new Amount(5));
-        assertEquals(expectedItemInformation.getItemName(), item.getItemInformation().getItemName());
-        assertEquals(expectedItemInformation.getItemDescription(), item.getItemInformation().getItemDescription());
-        assertEquals(expectedItemInformation.getItemPrice().getAmount(), item.getItemInformation().getItemPrice().getAmount());
-        assertEquals(expectedItemInformation.getItemTaxAmount().getAmount(), item.getItemInformation().getItemTaxAmount().getAmount());
+        assertEquals(expectedItemInformation.getItemName(), item.getItemInformation().getItemName(), "Item name should match the expected value.");
+        assertEquals(expectedItemInformation.getItemDescription(), item.getItemInformation().getItemDescription(), "Item description should match the expected value.");
+        assertEquals(expectedItemInformation.getItemPrice().getAmount(), item.getItemInformation().getItemPrice().getAmount(), "Item price should match the expected value.");
+        assertEquals(expectedItemInformation.getItemTaxAmount().getAmount(), item.getItemInformation().getItemTaxAmount().getAmount(), "Item tax amount should match the expected value.");
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ItemTest {
         Amount increaseBy = new Amount(3);
         item.increaseQuantity(increaseBy);
         Amount expectedQuantity = new Amount(5);
-        assertEquals(expectedQuantity.getAmount(), item.getQuantity().getAmount());
+        assertEquals(expectedQuantity.getAmount(), item.getQuantity().getAmount(), "Quantity should increase by the specified amount.");
     }
 
     @Test
@@ -55,19 +55,19 @@ public class ItemTest {
         Amount decreaseBy = new Amount(1);
         item.decreaseQuantity(decreaseBy);
         Amount expectedQuantity = new Amount(1);
-        assertEquals(expectedQuantity.getAmount(), item.getQuantity().getAmount());
+        assertEquals(expectedQuantity.getAmount(), item.getQuantity().getAmount(), "Quantity should decrease by the specified amount.");
     }
 
     @Test
     public void getQuantity() {
         Amount expectedQuantity = new Amount(2);
-        assertEquals(expectedQuantity.getAmount(), item.getQuantity().getAmount());
+        assertEquals(expectedQuantity.getAmount(), item.getQuantity().getAmount(), "Quantity should match the expected value.");
     }
 
     @Test
     public void setQuantity() {
         Amount newQuantity = new Amount(10);
         item.setQuantity(newQuantity);
-        assertEquals(newQuantity.getAmount(), item.getQuantity().getAmount());
+        assertEquals(newQuantity.getAmount(), item.getQuantity().getAmount(), "Quantity should match the new value after setting.");
     }
 }
