@@ -11,12 +11,14 @@ import se.kth.iv1350.processSaleMarcusHampus.integration.InventorySystem;
 import se.kth.iv1350.processSaleMarcusHampus.integration.Item;
 import se.kth.iv1350.processSaleMarcusHampus.integration.ItemDTO;
 import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
+import se.kth.iv1350.processSaleMarcusHampus.model.SaleDTO;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 public class InventorySystemTest {
 
     private InventorySystem inventorySystem;
     private Sale sale;
+    private SaleDTO saleInformation;
 
     @BeforeEach
     public void setUp() {
@@ -26,10 +28,11 @@ public class InventorySystemTest {
         ItemDTO bananaDTO = new ItemDTO("Banana", "Fruit", new Amount(5), new Amount(1));
         ItemDTO icecreamDTO = new ItemDTO("Icecream", "Frozen", new Amount(49), new Amount(6));
         ItemDTO pastaDTO = new ItemDTO("Pasta", "Dry goods", new Amount(15), new Amount(3));
-        sale.addItem(new Item("32001", milkDTO, new Amount(5)));
-        sale.addItem(new Item("32002", bananaDTO, new Amount(3)));
-        sale.addItem(new Item("32003", icecreamDTO, new Amount(2)));
-        sale.addItem(new Item("32004", pastaDTO, new Amount(4)));
+        sale.addItem(new Item("32001", milkDTO, new Amount(0)), new Amount(5));
+        sale.addItem(new Item("32002", bananaDTO, new Amount(0)), new Amount(3));
+        sale.addItem(new Item("32003", icecreamDTO, new Amount(0)), new Amount(2));
+        sale.addItem(new Item("32004", pastaDTO, new Amount(0)), new Amount(4));
+        saleInformation = new SaleDTO(sale);
     }
 
     @AfterEach
@@ -54,7 +57,7 @@ public class InventorySystemTest {
 
     @Test
     public void testUpdateInventorySystem() {
-        inventorySystem.updateInventorySystem(sale);
+        inventorySystem.updateInventorySystem(saleInformation);
         
         assertEquals(5, inventorySystem.fetchItem("32001").getQuantity().getAmount(), "Quantity of fetched item should be updated after sale.");
         assertEquals(7, inventorySystem.fetchItem("32002").getQuantity().getAmount(), "Quantity of fetched item should be updated after sale.");

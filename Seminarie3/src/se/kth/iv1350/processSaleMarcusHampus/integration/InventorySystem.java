@@ -45,7 +45,7 @@ public class InventorySystem {
     public Item fetchItem(String itemIdentifier) {
         for (Item item : inventory) {
             if (itemIdentifier.equals(item.getItemIdentifier())) {
-                return new Item(item);
+                return item;
             }
         }
         return null;
