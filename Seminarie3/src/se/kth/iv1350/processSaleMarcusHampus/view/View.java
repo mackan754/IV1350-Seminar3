@@ -8,7 +8,7 @@ import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
  * starting and displaying the outcomes of a simulated sale process.
  */
 public class View {
-    private Controller contr;
+    private final Controller contr;
 
     /**
      * Constructs a View instance which will interact with the specified Controller

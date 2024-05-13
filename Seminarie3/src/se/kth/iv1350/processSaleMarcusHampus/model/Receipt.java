@@ -6,7 +6,7 @@ package se.kth.iv1350.processSaleMarcusHampus.model;
  */
 public class Receipt {
 
-    private Sale sale;
+    private final Sale sale;
 
     /**
      * Constructs a Receipt object with a reference to the Sale instance that the receipt will represent.
@@ -23,14 +23,13 @@ public class Receipt {
      *
      * @return a string representation of the receipt, formatted for printing.
      */
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n");
-        sb.append("-----RECEIPT-----");
-        sb.append("\n");
-        sb.append(sale.getFormattedSaleTime().toString());
-        sb.append("\n");
-        sb.append(sale.toString());
+        sb.append("\n-----RECEIPT-----\n");
+        sb.append("Sale Time: ").append(sale.getFormattedSaleTime()).append("\n\n");
+        sb.append("Items Purchased:\n");
+        sb.append(sale);  // Använder Sale klassens toString för att få item listan
         sb.append("\n-------END-------");
         return sb.toString();
     }

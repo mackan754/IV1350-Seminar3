@@ -1,54 +1,45 @@
-package se.kth.iv1350.processSaleMarcusHampusTest.integration;
+package se.kth.iv1350.processSaleMarcusHampus.integration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-
-import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import se.kth.iv1350.processSaleMarcusHampus.integration.AccountingSystem;
+import java.util.ArrayList;
 import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 public class AccountingSystemTest {
 
     private AccountingSystem accountingSystem;
-    private Sale sale;
 
     @Before
     public void setUp() {
         accountingSystem = new AccountingSystem();
-        sale = new Sale();
-    }
-
-    @After
-    public void tearDown() {
-        accountingSystem = null;
-        sale = null;
     }
 
     @Test
-    public void testGetPresenInRegister() {
-        Amount initialBalance = new Amount(0);
-        assertEquals(initialBalance.getAmount(), accountingSystem.getPresenInRegister().getAmount(), "Initial register balance should be zero");
-    }
-
-    @Test
-    public void testGetAccountingBook() {
-        ArrayList<Sale> initialAccountingBook = new ArrayList<>();
-        assertEquals(initialAccountingBook, accountingSystem.getAccountingBook(), "Initial accounting book should be empty");
+    public void testInitialization() {
+        assertTrue("Accounting book should be empty upon initialization", accountingSystem.getAccountingBook().isEmpty());
+        assertEquals("Cash register should be initialized to 0", new Amount(0), accountingSystem.getPresenInRegister());
     }
 
     @Test
     public void testUpdateAccountingSystem() {
-        Amount payment = new Amount(100);
-        Amount initialBalance = accountingSystem.getPresenInRegister();
-        accountingSystem.updateAccountingSystem(sale, payment);
-        assertEquals(1, accountingSystem.getAccountingBook().size(),
-                "Accountingbook size should be increased by 1 after updating.");
-        assertEquals(initialBalance.plus(payment).getAmount(), accountingSystem.getPresenInRegister().getAmount(),
-                "Balance in register should be increased by payment amount.");
+        Sale testSale = new Sale(); // Assuming there's a no-arg constructor
+        Amount payment = new Amount(100); // Amount of 100 for simplicity
+        accountingSystem.updateAccountingSystem(testSale, payment);
+
+        assertEquals("The accounting book should have one sale recorded", 1, accountingSystem.getAccountingBook().size());
+        assertTrue("The recorded sale should be the one we added", accountingSystem.getAccountingBook().contains(testSale));
+        assertEquals("Cash register should be updated by the payment amount", new Amount(100), accountingSystem.getPresenInRegister());
     }
 
+    @Test
+    public void testGetAccountingBook() {
+        Sale testSale = new Sale();
+        accountingSystem.updateAccountingSystem(testSale, new Amount(50));
+        ArrayList<Sale> retrievedBook = accountingSystem.getAccountingBook();
+
+        assertTrue("The retrieved accounting book should contain the added sale", retrievedBook.contains(testSale));
+    }
 }

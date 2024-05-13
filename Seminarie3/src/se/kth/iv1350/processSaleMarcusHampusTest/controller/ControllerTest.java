@@ -1,90 +1,84 @@
-package se.kth.iv1350.processSaleMarcusHampusTest.controller;
+package se.kth.iv1350.processSaleMarcusHampus.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import se.kth.iv1350.processSaleMarcusHampus.controller.Controller;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 import se.kth.iv1350.processSaleMarcusHampus.integration.AccountingSystem;
 import se.kth.iv1350.processSaleMarcusHampus.integration.InventorySystem;
 import se.kth.iv1350.processSaleMarcusHampus.integration.Printer;
+import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
-public class ControllerTest {
-
+class ControllerTest {
     private Controller controller;
-    private AccountingSystem accountingSystem;
-    private InventorySystem inventorySystem;
-    private Printer printer;
+    private AccountingSystem accountingSystemMock;
+    private InventorySystem inventorySystemMock;
+    private Printer printerMock;
+    private Sale saleMock;
 
     @BeforeEach
-    public void setUp() {
-        accountingSystem = new AccountingSystem();
-        inventorySystem = new InventorySystem();
-        printer = new Printer();
-        controller = new Controller(accountingSystem, inventorySystem, printer);
-    }
-
-    @AfterEach
-    public void tearDown() {
-        accountingSystem = null;
-        inventorySystem = null;
-        printer = null;
-        controller = null;
+    void setUp() {
+        accountingSystemMock = mock(AccountingSystem.class);
+        inventorySystemMock = mock(InventorySystem.class);
+        printerMock = mock(Printer.class);
+        controller = new Controller(accountingSystemMock, inventorySystemMock, printerMock);
+        saleMock = mock(Sale.class);
     }
 
     @Test
-    public void testStartNewSale() {
+    void testStartNewSale() {
         controller.startNewSale();
-        assertEquals("0", controller.displayTotal(), "Sale did not start correctly.");
+        assertNotNull(controller.getSale(), "Sale should not be null after starting a new sale");
     }
 
     @Test
-    public void testAddItem() {
-        controller.startNewSale();
+    void testAddItem() {
+        when(controller.getSale()).thenReturn(saleMock);
+        String itemIdentifier = "123ABC";
         Amount quantity = new Amount(2);
-        controller.addItem("32001", quantity);
-        String expectedTotal = "24";
-        assertEquals(expectedTotal, controller.displayTotal(),
-                "Adding and existing inventory item did not update the sale correctly.");
+        String expectedOutput = "Item added successfully";
+        when(saleMock.addItem(itemIdentifier, quantity)).thenReturn(expectedOutput);
+
+        String result = controller.addItem(itemIdentifier, quantity);
+        
+        verify(saleMock, times(1)).addItem(itemIdentifier, quantity);
+        assertEquals(expectedOutput, result, "The output should match the expected result.");
     }
 
     @Test
-    public void testDisplayTotal() {
-        controller.startNewSale();
+    void testDisplayTotal() {
+        when(controller.getSale()).thenReturn(saleMock);
+        when(saleMock.getTotal()).thenReturn(new Amount(500));
 
-        controller.addItem("32001", new Amount(2));
-        controller.addItem("32002", new Amount(3));
-
-        String expectedTotal = "39";
-
-        assertEquals(expectedTotal, controller.displayTotal(),
-                "Displayed total does not match the expected total without considering tax.");
+        String result = controller.displayTotal();
+        assertEquals("500", result, "The displayed total should match the expected amount.");
     }
 
     @Test
-    public void testDisplayTotalIncludingTax() {
-        controller.startNewSale();
+    void testDisplayTotalIncludingTax() {
+        when(controller.getSale()).thenReturn(saleMock);
+        when(saleMock.getTotalIncludingTax()).thenReturn(new Amount(625));
 
-        controller.addItem("32001", new Amount(2));
-        controller.addItem("32002", new Amount(3));
-
-        String expectedTotal = "46";
-
-        assertEquals(expectedTotal, controller.displayTotalIncludingTax(),
-                "Displayed total does not match the expected total.");
+        String result = controller.displayTotalIncludingTax();
+        assertEquals("625", result, "The displayed total including tax should match the expected amount.");
     }
 
     @Test
-    public void testEnterPayment() {
-        controller.startNewSale();
+    void testEnterPayment() {
+        Amount payment = new Amount(1000);
+        Amount expectedChange = new Amount(375);
+        Receipt receipt = new Receipt(saleMock);
 
-        controller.addItem("32001", new Amount(2)); 
+        when(controller.getSale()).thenReturn(saleMock);
+        when(saleMock.calculateChange(payment)).thenReturn(expectedChange);
+        when(saleMock.finalizeSale(payment)).thenReturn(receipt);
 
-        Amount payment = new Amount(100);
-        Amount expectedChange = payment.minus(new Amount(28)); 
+        String result = controller.enterPayment(payment);
+        assertEquals("375", result, "Change should be calculated correctly.");
 
-        assertEquals(expectedChange.toString(), controller.enterPayment(payment), "Returned change does not match the expected change after payment.");
+        verify(printerMock, times(1)).print(receipt);
+        verify(saleMock, times(1)).finalizeSale(payment);
+        assertNull(controller.getSale(), "Sale should be null after completion.");
     }
-
 }

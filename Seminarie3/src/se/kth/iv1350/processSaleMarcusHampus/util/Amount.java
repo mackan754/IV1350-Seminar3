@@ -31,6 +31,7 @@ public final class Amount {
      *
      * @return the integer value of this Amount as a string.
      */
+    @Override
     public String toString() {
         return Integer.toString(amount);
     }

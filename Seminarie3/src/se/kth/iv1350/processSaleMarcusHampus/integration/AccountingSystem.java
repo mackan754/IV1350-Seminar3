@@ -10,7 +10,7 @@ import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
  */
 public class AccountingSystem {
 
-    private ArrayList<Sale> accountingBook;
+    private final ArrayList<Sale> accountingBook;
     private Amount presentInRegister;
 
     /**

@@ -10,7 +10,7 @@ import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
  */
 public class InventorySystem {
 
-    private ArrayList<Item> inventory;
+    private final ArrayList<Item> inventory;
 
     /**
      * Constructs an InventorySystem and initializes it with a default set of inventory items.

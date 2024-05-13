@@ -3,7 +3,10 @@ package se.kth.iv1350.processSaleMarcusHampus.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import se.kth.iv1350.processSaleMarcusHampus.integration.AccountingSystem;
+import se.kth.iv1350.processSaleMarcusHampus.integration.InventorySystem;
 import se.kth.iv1350.processSaleMarcusHampus.integration.Item;
+import se.kth.iv1350.processSaleMarcusHampus.integration.Printer;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 /**
@@ -12,16 +15,25 @@ import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
  */
 public class Sale {
 
-    private ArrayList<Item> saleItems;
-    private Amount total;
-    private Amount totalIncludingTax;
-    private LocalDateTime saleTime;
+    private final ArrayList<Item> saleItems;
+    private final Amount total;
+    private final Amount totalIncludingTax;
+    private final LocalDateTime saleTime;
+    private final InventorySystem inventorySystem; //Update 
+    private Printer printer; //Update
+    private final AccountingSystem accountingSystem; //update
+    //private GenerateItemDetails generateItemDetails; //update
 
     /**
     * Initializes a new Sale object with empty items and zero total cost (without tax).
     * Sale time is set to the current time.
+    @param inventorySystem ...
+    @param accountingSystem ..
+    @param printer ...
     */
-    public Sale() {
+    public Sale(InventorySystem inventorySystem, AccountingSystem accountingSystem, Printer printer) { //Uppdaterade så Sale tar med InventorySystem inventorySystem
+        this.inventorySystem = inventorySystem; //Och uppdaterade konstruktorn så den inkluderar denne referens
+        this.accountingSystem = accountingSystem; // Update
         this.saleItems = new ArrayList<>();
         this.total = new Amount(0);
         this.totalIncludingTax = new Amount(0);
@@ -79,23 +91,24 @@ public class Sale {
      *
      * @return the string format of the sale details.
      */
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Item item : saleItems) {
-            sb.append("\n").append(item.getItemInformation().getItemName())
-                    .append("\nprice: ").append(item.getItemInformation().getItemPrice())
-                    .append("\ntax amount: ").append(item.getItemInformation().getItemTaxAmount())
-                    .append("\nquantity: ").append(item.getQuantity() + "\n");
+            sb.append("\nItem: ").append(item.getItemInformation().getItemName())
+                    .append("\nPrice: ").append(item.getItemInformation().getItemPrice())
+                    .append("\nVAT amount: ").append(item.getItemInformation().getItemTaxAmount())
+                    .append("\nQuantity: ").append(item.getQuantity()).append("\n");
         }
-        sb.append("\ntotal: ").append(total);
-        sb.append("\ntax: ").append((totalIncludingTax.minus(total)));
+        sb.append("\nTotal: ").append(total);
+        sb.append("\nTotal inc. VAT: ").append(totalIncludingTax);
         return sb.toString();
     }
 
     /**
      * Updates the total and totalIncludingTax properties based on the items in the sale.
      */
-    private void updateTotals() {
+    /**private void updateTotals() {
         total = new Amount(0);
         totalIncludingTax = new Amount(0);
         for (Item saleItem : saleItems) {
@@ -107,7 +120,7 @@ public class Sale {
                     .plus(saleItem.getItemInformation().getItemTaxAmount());
             totalIncludingTax = totalIncludingTax.plus(totalPriceIncludingTaxPerItem.multiply(quantity));
         }
-    }
+    }*/
 
     /**
      * Checks if an item is already present in the sale.
@@ -115,31 +128,63 @@ public class Sale {
      * @param itemIdentifier the identifier of the item to check.
      * @return true if the item is present, false otherwise.
      */
-    private boolean itemIsPresent(String itemIdentifier) {
+    /**private boolean itemIsPresent(String itemIdentifier) {
         for (Item saleItem : saleItems) {
             if (saleItem.getItemIdentifier().equals(itemIdentifier)) {
                 return true;
             }
         }
         return false;
-    }
+    }*/
 
     /**
      * Adds an item to the sale if it is not already present; increases quantity otherwise.
      *
-     * @param item the item to be added or updated in the sale.
+     * @param itemIdentifier the item to be added or updated in the sale.
+     * @param quantity ...
+     * @return ....
      */
-    public void addItem(Item item) {
-        if (!itemIsPresent(item.getItemIdentifier())) {
-            saleItems.add(item);
-            updateTotals();
-        } else {
-            for (Item saleItem : saleItems) {
-                if (saleItem.getItemIdentifier().equals(item.getItemIdentifier())) {
-                    saleItem.increaseQuantity(item.getQuantity());
-                    updateTotals();
-                }
+
+//Feedback update
+
+    public String addItem(String itemIdentifier, Amount quantity) {
+        Item itemToBeAdded = inventorySystem.fetchItem(itemIdentifier); //Hämta objektet
+        if(itemToBeAdded == null){
+            return "Item not found.";
+        }
+
+        for(Item existingItem : this.saleItems) {
+            if (existingItem.getItemIdentifier().equals(itemIdentifier)) {
+                //Finns objeket öka quantity
+                existingItem.increaseQuantity(quantity);
+                return "Item quantity updated: " + existingItem.generateItemDetails();
             }
         }
+        
+        itemToBeAdded.setQuantity(quantity); //Om varan inte finns, lägg till den i listan.
+        this.saleItems.add(itemToBeAdded);
+        return "New item added: " + itemToBeAdded.generateItemDetails() ;
+    }
+
+    public Amount calculateChange (Amount payment){
+        //Amount totalIncludingTax = getTotalIncludingTax();
+        return payment.minus(this.totalIncludingTax);
+    }
+
+    public Receipt generateReceipt(){
+        return new Receipt(this); //Antag att Recipt konstruktorn tar en Sale instans?
+    }
+
+    
+    public void finalizeSale(Amount payment) {
+        if (printer != null) {
+            Receipt receipt = new Receipt(this); // Skapar kvittot direkt från 'Sale'
+            printer.print(receipt); // Använder 'printer' för att skriva ut 'receipt'
+        } else {
+            System.out.println("Printer not initialized");
+        }
+        accountingSystem.updateAccountingSystem(this, payment);
+        inventorySystem.updateInventorySystem(this);
+    
     }
 }

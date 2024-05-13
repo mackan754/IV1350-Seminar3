@@ -8,8 +8,8 @@ import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
  */
 public class Item {
 
-    private String itemIdentifier;      
-    private ItemDTO itemInformation;    
+    private final String itemIdentifier;      
+    private final ItemDTO itemInformation;    
     private Amount quantity;            
 
     /**
@@ -78,4 +78,19 @@ public class Item {
     public void setQuantity(Amount otherQuantity) {
         this.quantity = otherQuantity;
     }
+
+    /**
+     * Constructs a detailed description of an item's properties, including name, price, tax, quantity, and running total.
+     @return ....
+     */
+    public String generateItemDetails() { //Flyttar generateItemDetails till Item-klassen från Controllern
+        return "Item name: " + this.getItemInformation().getItemName() + //ändrar till this. från item. varför vet jag inte
+                ", Price: " + this.getItemInformation().getItemPrice() + //*Här används this. för att tydligt referera till de aktuella objektinstansens attribut och metoder. Det ger också klarhet i att det är objektets egna data som hanteras. */
+                ", VAT amount: " + this.getItemInformation().getItemTaxAmount() +
+                ", Quantity: " + this.getQuantity();
+                //*+ ", running total: " + this.getTotal(); Detta bör hanteras i Sale-klassen ist.*/
+                //* Inkapsling: Genom att flytta ansvar för att hantera totaler och aggregerade värden till Sale-klassen, */
+                //*förblir Item-klassen ren från beroenden på andra objekts tillstånd, vilket främjar bättre inkapsling och återanvändning av Item-klassen.*/
+    }
 }
+

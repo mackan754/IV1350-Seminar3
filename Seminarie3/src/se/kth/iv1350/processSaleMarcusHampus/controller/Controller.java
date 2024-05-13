@@ -2,7 +2,6 @@ package se.kth.iv1350.processSaleMarcusHampus.controller;
 
 import se.kth.iv1350.processSaleMarcusHampus.integration.AccountingSystem;
 import se.kth.iv1350.processSaleMarcusHampus.integration.InventorySystem;
-import se.kth.iv1350.processSaleMarcusHampus.integration.Item;
 import se.kth.iv1350.processSaleMarcusHampus.integration.Printer;
 import se.kth.iv1350.processSaleMarcusHampus.model.Receipt;
 import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
@@ -14,9 +13,9 @@ import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
  */
 public class Controller {
 
-    private AccountingSystem accountingSystem;
-    private InventorySystem inventorySystem;
-    private Printer printer;
+    private final AccountingSystem accountingSystem;
+    private final InventorySystem inventorySystem;
+    private final Printer printer;
     private Sale sale;
 
     /**
@@ -36,9 +35,8 @@ public class Controller {
      * Begins a new sale, resetting the current Sale object to ensure a clean state.
      */
     public void startNewSale() {
-        this.sale = new Sale();
+        this.sale = new Sale(this.inventorySystem, this.accountingSystem, this.printer); //Uppdaterar också Sale instansen i controllern och förser den med referensen
     }
-
     /**
      * Adds an item to the current sale using an identifier. The quantity of the item is also specified.
      * 
@@ -47,27 +45,7 @@ public class Controller {
      * @return a string summarizing the added item's details and the current sale total
      */
     public String addItem(String itemIdentifier, Amount quantity) {
-        Item itemToBeAdded = inventorySystem.fetchItem(itemIdentifier);
-        itemToBeAdded.setQuantity(quantity);
-        sale.addItem(itemToBeAdded);
-
-        return generateItemDetails(itemToBeAdded);
-    }
-
-
-    /**
-     * Constructs a detailed description of an item's properties, including name, price, tax, quantity, and running total.
-     *
-     * @param item the item for which details are to be generated
-     * @return a detailed string of the item's attributes
-     */
-    private String generateItemDetails(Item item) {
-        String itemDetails = "item name: " + item.getItemInformation().getItemName()
-                + ", price: " + item.getItemInformation().getItemPrice()
-                + ", tax amount: " + item.getItemInformation().getItemTaxAmount()
-                + ", quantity: " + item.getQuantity()
-                + ", running total: " + sale.getTotal();
-        return itemDetails;
+        return sale.addItem(itemIdentifier, quantity); //Anropar den nya metoden
     }
 
     /**
@@ -96,11 +74,10 @@ public class Controller {
      * @return string representing the change to be given to the customer
      */
     public String enterPayment(Amount payment) {
-        Amount change = payment.minus(sale.getTotalIncludingTax());
+        Amount change = sale.calculateChange(payment);
+        sale.finalizeSale(payment);
         Receipt receipt = new Receipt(sale);
         printer.print(receipt);
-        inventorySystem.updateInventorySystem(sale);
-        accountingSystem.updateAccountingSystem(sale, payment);
         sale = null;
         return change.toString();
     }
