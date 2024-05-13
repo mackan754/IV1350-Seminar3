@@ -12,7 +12,7 @@ import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
  */
 public class Sale {
 
-    private ArrayList<Item> saleItems;
+    private ArrayList<Item> items;
     private Amount total;
     private Amount totalIncludingTax;
     private LocalDateTime saleTime;
@@ -22,7 +22,7 @@ public class Sale {
     * Sale time is set to the current time.
     */
     public Sale() {
-        this.saleItems = new ArrayList<>();
+        this.items = new ArrayList<>();
         this.total = new Amount(0);
         this.totalIncludingTax = new Amount(0);
         this.saleTime = LocalDateTime.now();
@@ -52,7 +52,7 @@ public class Sale {
      * @return the list of Item objects.
      */
     public ArrayList<Item> getItems() {
-        return saleItems;
+        return items;
     }
 
     /**
@@ -75,30 +75,12 @@ public class Sale {
     }
 
     /**
-     * Generates a string representation of the sale, detailing items, prices, taxes, and totals.
-     *
-     * @return the string format of the sale details.
-     */
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Item item : saleItems) {
-            sb.append("\n").append(item.getItemInformation().getItemName())
-                    .append("\nprice: ").append(item.getItemInformation().getItemPrice())
-                    .append("\ntax amount: ").append(item.getItemInformation().getItemTaxAmount())
-                    .append("\nquantity: ").append(item.getQuantity() + "\n");
-        }
-        sb.append("\ntotal: ").append(total);
-        sb.append("\ntax: ").append((totalIncludingTax.minus(total)));
-        return sb.toString();
-    }
-
-    /**
      * Updates the total and totalIncludingTax properties based on the items in the sale.
      */
     private void updateTotals() {
         total = new Amount(0);
         totalIncludingTax = new Amount(0);
-        for (Item saleItem : saleItems) {
+        for (Item saleItem : items) {
             Amount totalPricePerItem = saleItem.getItemInformation().getItemPrice();
             Amount quantity = saleItem.getQuantity();
             total = total.plus(totalPricePerItem.multiply(quantity));
@@ -116,7 +98,7 @@ public class Sale {
      * @return true if the item is present, false otherwise.
      */
     private boolean itemIsPresent(String itemIdentifier) {
-        for (Item saleItem : saleItems) {
+        for (Item saleItem : items) {
             if (saleItem.getItemIdentifier().equals(itemIdentifier)) {
                 return true;
             }
@@ -129,17 +111,24 @@ public class Sale {
      *
      * @param item the item to be added or updated in the sale.
      */
-    public void addItem(Item item) {
+    public void addItem(Item item, Amount quantity) {
+        item.setQuantity(quantity);
         if (!itemIsPresent(item.getItemIdentifier())) {
-            saleItems.add(item);
+            items.add(item);
             updateTotals();
         } else {
-            for (Item saleItem : saleItems) {
+            for (Item saleItem : items) {
                 if (saleItem.getItemIdentifier().equals(item.getItemIdentifier())) {
                     saleItem.increaseQuantity(item.getQuantity());
                     updateTotals();
                 }
             }
         }
+    }
+
+    public Amount completeSale(Amount payment) {
+        Amount change = payment.minus(getTotalIncludingTax());
+
+        return change;
     }
 }
