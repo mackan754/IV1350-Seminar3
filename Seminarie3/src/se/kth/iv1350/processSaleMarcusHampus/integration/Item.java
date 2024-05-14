@@ -26,6 +26,16 @@ public class Item {
     }
 
     /**
+     * Constructs a new instance of an already existing item. Containing identifier, description and quantity.
+     * @param item to make a new instance of
+     */
+    public Item(Item item) {
+        this.itemIdentifier = item.itemIdentifier;
+        this.itemInformation = new ItemDTO(item.itemInformation);
+        this.quantity = new Amount(item.quantity.getAmount());
+    }
+
+    /**
      * Returns the unique identifier for the item.
      *
      * @return The unique identifier as a string
@@ -78,8 +88,6 @@ public class Item {
     public void setQuantity(Amount otherQuantity) {
         this.quantity = otherQuantity;
     }
-<<<<<<< Updated upstream
-=======
 
     public String generateItemDetails() {
         String itemDetails = getItemInformation().getItemName() + "\n--------" +
@@ -88,6 +96,4 @@ public class Item {
                 ",\n Quantity: " + getQuantity() + " st" + "\n--------";
         return itemDetails;
     }
-    
->>>>>>> Stashed changes
 }

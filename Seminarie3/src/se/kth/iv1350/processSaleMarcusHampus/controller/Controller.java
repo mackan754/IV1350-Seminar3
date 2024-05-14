@@ -6,6 +6,7 @@ import se.kth.iv1350.processSaleMarcusHampus.integration.Item;
 import se.kth.iv1350.processSaleMarcusHampus.integration.Printer;
 import se.kth.iv1350.processSaleMarcusHampus.model.Receipt;
 import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
+import se.kth.iv1350.processSaleMarcusHampus.model.SaleDTO;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 /**
@@ -44,29 +45,13 @@ public class Controller {
      * 
      * @param itemIdentifier a unique string identifier for the item to be added
      * @param quantity the quantity of the item, encapsulated in an Amount object
-     * @return a string summarizing the added item's details and the current sale total
+     * @return a string summarizing the added item's details
      */
     public String addItem(String itemIdentifier, Amount quantity) {
         Item itemToBeAdded = inventorySystem.fetchItem(itemIdentifier);
-        itemToBeAdded.setQuantity(quantity);
-        sale.addItem(itemToBeAdded);
+        sale.addItem(itemToBeAdded, quantity);
+        String itemDetails = itemToBeAdded.generateItemDetails();
 
-        return generateItemDetails(itemToBeAdded);
-    }
-
-
-    /**
-     * Constructs a detailed description of an item's properties, including name, price, tax, quantity, and running total.
-     *
-     * @param item the item for which details are to be generated
-     * @return a detailed string of the item's attributes
-     */
-    private String generateItemDetails(Item item) {
-        String itemDetails = "item name: " + item.getItemInformation().getItemName()
-                + ", price: " + item.getItemInformation().getItemPrice()
-                + ", tax amount: " + item.getItemInformation().getItemTaxAmount()
-                + ", quantity: " + item.getQuantity()
-                + ", running total: " + sale.getTotal();
         return itemDetails;
     }
 
@@ -96,12 +81,15 @@ public class Controller {
      * @return string representing the change to be given to the customer
      */
     public String enterPayment(Amount payment) {
-        Amount change = payment.minus(sale.getTotalIncludingTax());
-        Receipt receipt = new Receipt(sale);
+        Amount change = sale.completeSale(payment);
+
+        SaleDTO saleInformation = new SaleDTO(sale);
+        Receipt receipt = new Receipt(saleInformation);
         printer.print(receipt);
-        inventorySystem.updateInventorySystem(sale);
-        accountingSystem.updateAccountingSystem(sale, payment);
-        sale = null;
+
+        inventorySystem.updateInventorySystem(saleInformation);
+        accountingSystem.updateAccountingSystem(saleInformation, payment);
+
         return change.toString();
     }
 }

@@ -1,11 +1,12 @@
 package se.kth.iv1350.processSaleMarcusHampus.integration;
 
 import java.util.ArrayList;
-import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
+import se.kth.iv1350.processSaleMarcusHampus.model.SaleDTO;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 /**
- * The InventorySystem class manages the stock levels of items available for sale.
+ * The InventorySystem class manages the stock levels of items available for
+ * sale.
  * It handles operations such as item retrieval and stock updates post-sale.
  */
 public class InventorySystem {
@@ -13,7 +14,8 @@ public class InventorySystem {
     private ArrayList<Item> inventory;
 
     /**
-     * Constructs an InventorySystem and initializes it with a default set of inventory items.
+     * Constructs an InventorySystem and initializes it with a default set of
+     * inventory items.
      */
     public InventorySystem() {
         this.inventory = new ArrayList<>();
@@ -40,12 +42,12 @@ public class InventorySystem {
      * Retrieves an item from the inventory based on its unique identifier.
      *
      * @param itemIdentifier A string representing the unique identifier of the item
-     * @return The item if found; null if no item matches the identifier
+     * @return New instance of item if found; null if no item matches the identifier
      */
     public Item fetchItem(String itemIdentifier) {
         for (Item item : inventory) {
             if (itemIdentifier.equals(item.getItemIdentifier())) {
-                return item;
+                return new Item(item);
             }
         }
         return null;
@@ -55,18 +57,26 @@ public class InventorySystem {
      * Updates the inventory based on items sold in a completed sale.
      * It decreases the stock quantity of each sold item.
      *
-     * @param sale The sale containing the list of items that have been sold
+     * @param saleInformation The saleInformation containing the list of items that have been sold
      */
-    public void updateInventorySystem(Sale sale) {
-        ArrayList<Item> soldItems = sale.getItems();
+    public void updateInventorySystem(SaleDTO saleinformation) {
+        ArrayList<Item> soldItems = saleinformation.getItems();
 
         for (Item soldItem : soldItems) {
             String itemIdentifier = soldItem.getItemIdentifier();
             Amount quantitySold = soldItem.getQuantity();
 
             Item inventoryItem = fetchItem(itemIdentifier);
-            Amount updatedQuantity = inventoryItem.getQuantity().minus(quantitySold);
-            inventoryItem.setQuantity(updatedQuantity);
+            if (inventoryItem != null) {
+                Amount updatedQuantity = inventoryItem.getQuantity().minus(quantitySold);
+
+                for (Item item : inventory) {
+                    if (itemIdentifier.equals(item.getItemIdentifier())) {
+                        item.setQuantity(updatedQuantity);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

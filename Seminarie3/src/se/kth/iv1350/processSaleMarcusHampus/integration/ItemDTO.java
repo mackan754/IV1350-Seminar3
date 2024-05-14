@@ -29,6 +29,18 @@ public class ItemDTO {
     }
 
     /**
+     *  Constructs a new instance of an ItemDTO, using an already existing ItemDTO.
+     * 
+     * @param itemInformation The ItemDTO to create a new instance of.
+     */
+    public ItemDTO(ItemDTO itemInformation) {
+        this.itemName = itemInformation.itemName;
+        this.itemDescription = itemInformation.itemDescription;
+        this.itemPrice = new Amount(itemInformation.itemPrice.getAmount()); 
+        this.itemTaxAmount = new Amount(itemInformation.itemTaxAmount.getAmount());
+    }
+
+    /**
      * Retrieves the name of the item.
      *
      * @return The name of the item
