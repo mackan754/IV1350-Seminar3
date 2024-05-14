@@ -78,4 +78,16 @@ public class Item {
     public void setQuantity(Amount otherQuantity) {
         this.quantity = otherQuantity;
     }
+<<<<<<< Updated upstream
+=======
+
+    public String generateItemDetails() {
+        String itemDetails = getItemInformation().getItemName() + "\n--------" +
+                "\n Price: " + getItemInformation().getItemPrice() + " SEK" +
+                ",\n VAT amount: " + getItemInformation().getItemTaxAmount() + " SEK" +
+                ",\n Quantity: " + getQuantity() + " st" + "\n--------";
+        return itemDetails;
+    }
+    
+>>>>>>> Stashed changes
 }

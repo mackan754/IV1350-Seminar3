@@ -26,12 +26,17 @@ public class Receipt {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\n");
-        sb.append("-----RECEIPT-----");
+        sb.append("----------RECEIPT-----------");
         sb.append("\n");
         sb.append(sale.getFormattedSaleTime().toString());
         sb.append("\n");
+<<<<<<< Updated upstream
         sb.append(sale.toString());
         sb.append("\n-------END-------");
+=======
+        sb.append(saleInformation.toString());
+        sb.append("\n----------END----------");
+>>>>>>> Stashed changes
         return sb.toString();
     }
 }
