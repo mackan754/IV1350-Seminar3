@@ -9,9 +9,9 @@ public class Receipt {
     private SaleDTO saleInformation;
 
     /**
-     * Constructs a Receipt object with a reference to the Sale instance that the receipt will represent.
+     * Constructs a Receipt object with a reference to the SaleDTO instance that the receipt will represent.
      *
-     * @param sale the Sale object that contains the details of the completed sale.
+     * @param saleInformation the SaleDTO object that contains the details of the completed sale.
      */
     public Receipt(SaleDTO saleInformation) {
         this.saleInformation = saleInformation;

@@ -126,6 +126,12 @@ public class Sale {
         }
     }
 
+    /**
+     * Calculates the change to be given to customer.
+     * 
+     * @param payment The amount paid by the customer
+     * @return The change to be given to customer, as object Amount
+     */
     public Amount completeSale(Amount payment) {
         Amount change = payment.minus(getTotalIncludingTax());
 

@@ -25,6 +25,10 @@ public class Item {
         this.quantity = quantity;
     }
 
+    /**
+     * Constructs a new instance of an already existing item. Containing identifier, description and quantity.
+     * @param item to make a new instance of
+     */
     public Item(Item item) {
         this.itemIdentifier = item.itemIdentifier;
         this.itemInformation = new ItemDTO(item.itemInformation);
@@ -85,6 +89,10 @@ public class Item {
         this.quantity = otherQuantity;
     }
 
+    /**
+     * Returns the item details stored within the item.
+     * @return The item details as a String.
+     */
     public String generateItemDetails() {
         String itemDetails = "item name: " + getItemInformation().getItemName()
                 + ", price: " + getItemInformation().getItemPrice()

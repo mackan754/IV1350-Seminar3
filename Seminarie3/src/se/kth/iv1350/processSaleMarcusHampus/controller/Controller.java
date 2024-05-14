@@ -45,7 +45,7 @@ public class Controller {
      * 
      * @param itemIdentifier a unique string identifier for the item to be added
      * @param quantity the quantity of the item, encapsulated in an Amount object
-     * @return a string summarizing the added item's details and the current sale total
+     * @return a string summarizing the added item's details
      */
     public String addItem(String itemIdentifier, Amount quantity) {
         Item itemToBeAdded = inventorySystem.fetchItem(itemIdentifier);
