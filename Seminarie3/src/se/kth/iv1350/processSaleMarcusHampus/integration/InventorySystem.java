@@ -5,7 +5,8 @@ import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 /**
- * The InventorySystem class manages the stock levels of items available for sale.
+ * The InventorySystem class manages the stock levels of items available for
+ * sale.
  * It handles operations such as item retrieval and stock updates post-sale.
  */
 public class InventorySystem {
@@ -13,7 +14,8 @@ public class InventorySystem {
     private ArrayList<Item> inventory;
 
     /**
-     * Constructs an InventorySystem and initializes it with a default set of inventory items.
+     * Constructs an InventorySystem and initializes it with a default set of
+     * inventory items.
      */
     public InventorySystem() {
         this.inventory = new ArrayList<>();
@@ -45,7 +47,7 @@ public class InventorySystem {
     public Item fetchItem(String itemIdentifier) {
         for (Item item : inventory) {
             if (itemIdentifier.equals(item.getItemIdentifier())) {
-                return item;
+                return new Item(item);
             }
         }
         return null;
@@ -65,8 +67,16 @@ public class InventorySystem {
             Amount quantitySold = soldItem.getQuantity();
 
             Item inventoryItem = fetchItem(itemIdentifier);
-            Amount updatedQuantity = inventoryItem.getQuantity().minus(quantitySold);
-            inventoryItem.setQuantity(updatedQuantity);
+            if (inventoryItem != null) {
+                Amount updatedQuantity = inventoryItem.getQuantity().minus(quantitySold);
+
+                for (Item item : inventory) {
+                    if (itemIdentifier.equals(item.getItemIdentifier())) {
+                        item.setQuantity(updatedQuantity);
+                        break;
+                    }
+                }
+            }
         }
     }
 }
