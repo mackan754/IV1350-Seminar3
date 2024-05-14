@@ -1,7 +1,7 @@
 package se.kth.iv1350.processSaleMarcusHampus.integration;
 
 import java.util.ArrayList;
-import se.kth.iv1350.processSaleMarcusHampus.model.Sale;
+import se.kth.iv1350.processSaleMarcusHampus.model.SaleDTO;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
 /**
@@ -59,8 +59,8 @@ public class InventorySystem {
      *
      * @param sale The sale containing the list of items that have been sold
      */
-    public void updateInventorySystem(Sale sale) {
-        ArrayList<Item> soldItems = sale.getItems();
+    public void updateInventorySystem(SaleDTO saleinformation) {
+        ArrayList<Item> soldItems = saleinformation.getItems();
 
         for (Item soldItem : soldItems) {
             String itemIdentifier = soldItem.getItemIdentifier();

@@ -25,6 +25,12 @@ public class Item {
         this.quantity = quantity;
     }
 
+    public Item(Item item) {
+        this.itemIdentifier = item.itemIdentifier;
+        this.itemInformation = new ItemDTO(item.itemInformation);
+        this.quantity = new Amount(item.quantity.getAmount());
+    }
+
     /**
      * Returns the unique identifier for the item.
      *
@@ -77,5 +83,13 @@ public class Item {
      */
     public void setQuantity(Amount otherQuantity) {
         this.quantity = otherQuantity;
+    }
+
+    public String generateItemDetails() {
+        String itemDetails = "item name: " + getItemInformation().getItemName()
+                + ", price: " + getItemInformation().getItemPrice()
+                + ", tax amount: " + getItemInformation().getItemTaxAmount()
+                + ", quantity: " + getQuantity();
+        return itemDetails;
     }
 }

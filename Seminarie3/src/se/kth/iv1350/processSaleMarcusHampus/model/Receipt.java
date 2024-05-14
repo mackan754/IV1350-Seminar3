@@ -6,15 +6,15 @@ package se.kth.iv1350.processSaleMarcusHampus.model;
  */
 public class Receipt {
 
-    private Sale sale;
+    private SaleDTO saleInformation;
 
     /**
      * Constructs a Receipt object with a reference to the Sale instance that the receipt will represent.
      *
      * @param sale the Sale object that contains the details of the completed sale.
      */
-    public Receipt(Sale sale) {
-        this.sale = sale;
+    public Receipt(SaleDTO saleInformation) {
+        this.saleInformation = saleInformation;
     }
 
     /**
@@ -28,9 +28,9 @@ public class Receipt {
         sb.append("\n");
         sb.append("-----RECEIPT-----");
         sb.append("\n");
-        sb.append(sale.getFormattedSaleTime().toString());
+        sb.append(saleInformation.getFormattedSaleTime().toString());
         sb.append("\n");
-        sb.append(sale.toString());
+        sb.append(saleInformation.toString());
         sb.append("\n-------END-------");
         return sb.toString();
     }

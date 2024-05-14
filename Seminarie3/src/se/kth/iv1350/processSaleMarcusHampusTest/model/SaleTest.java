@@ -55,18 +55,18 @@ public class SaleTest {
 
     @Test
     public void testAddItem() {
-        Item item1 = new Item("123", itemDTO1, new Amount(5));
-        Item item2 = new Item("456", itemDTO2, new Amount(3));
+        Item item1 = new Item("123", itemDTO1, new Amount(0));
+        Item item2 = new Item("456", itemDTO2, new Amount(0));
 
-        sale.addItem(item1);
+        sale.addItem(item1, new Amount(5));
         assertEquals("One item should be added", 1, sale.getItems().size());
         assertEquals("Total amount should be updated correctly", 50, sale.getTotal().getAmount(), 0);
 
-        sale.addItem(item2);
+        sale.addItem(item2, new Amount(3));
         assertEquals("Another item should be added", 2, sale.getItems().size());
         assertEquals("Total amount should be updated correctly", 95, sale.getTotal().getAmount(), 0);
 
-        sale.addItem(item1);
+        sale.addItem(item1, new Amount(5));
         assertEquals("Duplicate item should not increase item count", 2, sale.getItems().size());
         assertEquals("Total amount should be updated correctly", 145, sale.getTotal().getAmount(), 0);
     }

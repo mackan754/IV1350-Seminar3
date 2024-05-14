@@ -28,6 +28,13 @@ public class ItemDTO {
         this.itemTaxAmount = itemTaxAmount;
     }
 
+    public ItemDTO(ItemDTO itemInformation) {
+        this.itemName = itemInformation.itemName;
+        this.itemDescription = itemInformation.itemDescription;
+        this.itemPrice = new Amount(itemInformation.itemPrice.getAmount()); 
+        this.itemTaxAmount = new Amount(itemInformation.itemTaxAmount.getAmount());
+    }
+
     /**
      * Retrieves the name of the item.
      *
