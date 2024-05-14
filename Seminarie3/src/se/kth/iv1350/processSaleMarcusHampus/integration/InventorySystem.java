@@ -57,7 +57,7 @@ public class InventorySystem {
      * Updates the inventory based on items sold in a completed sale.
      * It decreases the stock quantity of each sold item.
      *
-     * @param sale The sale containing the list of items that have been sold
+     * @param saleInformation The sale containing the list of items that have been sold
      */
     public void updateInventorySystem(SaleDTO saleinformation) {
         ArrayList<Item> soldItems = saleinformation.getItems();
