@@ -30,7 +30,7 @@ public class Receipt {
         sb.append("\n");
         sb.append(saleInformation.getFormattedSaleTime().toString());
         sb.append("\n");
-        sb.append(sale.toString());
+        sb.append(saleInformation.toString());
         sb.append(saleInformation.toString());
         sb.append("\n----------END----------");
         return sb.toString();

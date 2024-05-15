@@ -52,7 +52,7 @@ public class View {
         System.out.println(output);
         output += ("\nRunning total: " + contr.displayTotal() + " SEK");
         System.out.println(output + "\n");
-         >>> >>> > Stashed changes output = contr.displayTotalIncludingTax();
+        output = contr.displayTotalIncludingTax();
         System.out.println("Total including VAT: " + output + " SEK");
         System.out.println("\n*Cashier enter amount paid*\n");
         output = contr.enterPayment(new Amount(350)) + " SEK";
