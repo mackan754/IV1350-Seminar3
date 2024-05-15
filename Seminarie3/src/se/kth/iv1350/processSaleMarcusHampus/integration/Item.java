@@ -89,15 +89,11 @@ public class Item {
         this.quantity = otherQuantity;
     }
 
-    /**
-     * Returns the item details stored within the item.
-     * @return The item details as a String.
-     */
     public String generateItemDetails() {
-        String itemDetails = "item name: " + getItemInformation().getItemName()
-                + ", price: " + getItemInformation().getItemPrice()
-                + ", tax amount: " + getItemInformation().getItemTaxAmount()
-                + ", quantity: " + getQuantity();
+        String itemDetails = getItemInformation().getItemName() + "\n--------" +
+                "\n Price: " + getItemInformation().getItemPrice() + " SEK" +
+                ",\n VAT amount: " + getItemInformation().getItemTaxAmount() + " SEK" +
+                ",\n Quantity: " + getQuantity() + " st" + "\n--------";
         return itemDetails;
     }
 }

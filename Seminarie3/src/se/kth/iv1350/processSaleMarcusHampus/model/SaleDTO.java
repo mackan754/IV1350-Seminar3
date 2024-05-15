@@ -3,7 +3,6 @@ package se.kth.iv1350.processSaleMarcusHampus.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
 import se.kth.iv1350.processSaleMarcusHampus.integration.Item;
 import se.kth.iv1350.processSaleMarcusHampus.util.Amount;
 
@@ -88,13 +87,14 @@ public class SaleDTO {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Item item : items) {
-            sb.append("\n").append(item.getItemInformation().getItemName())
-                    .append("\nprice: ").append(item.getItemInformation().getItemPrice())
-                    .append("\ntax amount: ").append(item.getItemInformation().getItemTaxAmount())
-                    .append("\nquantity: ").append(item.getQuantity() + "\n");
+            sb.append("\n-----").append(item.getItemInformation().getItemName()).append("-----")
+                    .append("\nPrice: ").append(item.getItemInformation().getItemPrice()).append(" SEK")
+                    .append("\nVAT amount: ").append(item.getItemInformation().getItemTaxAmount()).append(" SEK")
+                    .append("\nQuantity: ").append(item.getQuantity()).append(" st\n");
         }
-        sb.append("\ntotal: ").append(total);
-        sb.append("\ntax: ").append((totalIncludingTax.minus(total)));
+        sb.append("\n--------------------\nTotal: ").append(total).append(" SEK");
+        sb.append("\nVAT: ").append(totalIncludingTax.minus(total)).append(" SEK").append("\n--------------------");
         return sb.toString();
     }
+    
 }
